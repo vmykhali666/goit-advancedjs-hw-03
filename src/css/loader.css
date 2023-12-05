@@ -1,8 +1,10 @@
 .loader {
-    width: 48px;
-    height: 48px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     position: relative;
+    top: calc(50% - 76px / 2);
+    left: calc(50% - 76px / 2);
     animation: rotate 1s linear infinite
   }
   .loader::before {
@@ -11,7 +13,7 @@
     position: absolute;
     inset: 0px;
     border-radius: 50%;
-    border: 5px solid #FFF;
+    border: 5px solid #000000;
     animation: prixClipFix 2s linear infinite ;
   }
   

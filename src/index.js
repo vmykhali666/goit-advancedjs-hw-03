@@ -16,8 +16,9 @@ function ShowError(message) {
     });
 }
 
-function toggleClass(element, isVisible) {
-    element.classList.toggle('hidder', isVisible);
+function toggleClass(element, isHide) {
+    element.classList.toggle('hidden', isHide);
+    console.log(element.tagName + " " + isHide);
 }
 
 function createBreedDetailsMarkup(data) {
@@ -46,12 +47,12 @@ const select = new SlimSelect({
     },
     events : {
         afterChange : async newVal => {
-            toggleClass(catInfo, false);
-            toggleClass(loaderEl, true);
-
             if (!newVal[0].value) {
                 return;
             }
+
+            toggleClass(catInfo, true);
+            toggleClass(loaderEl, false);
 
             await fetchCatByBreed(newVal[0].value)
             .then(response => {
@@ -64,16 +65,16 @@ const select = new SlimSelect({
                 ShowError(error);
             })
             .finally(() => {
-                toggleClass(loaderEl, false);
-                toggleClass(catInfo, true);
+                toggleClass(loaderEl, true);
+                toggleClass(catInfo, false);
             });
         }
     }
 });
 
 (async function fetchOnLoad() {
-    toggleClass(selector, false);
-    toggleClass(loaderEl, true);
+    toggleClass(selector, true);
+    toggleClass(loaderEl, false);
     await fetchBreeds()
     .then(response => {
         if (response.status !== 200) {
@@ -87,7 +88,7 @@ const select = new SlimSelect({
         ShowError(error);
     })
     .finally(() => {
-        toggleClass(loaderEl, false);
-        toggleClass(selector, true);
+        toggleClass(loaderEl, true);
+        toggleClass(selector, false);
     });
 })();
